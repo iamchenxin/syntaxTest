@@ -55,6 +55,54 @@ class Chain{
     }
 }
 
+class Chain2{
+
+    // arg = {init=null,parent=null,exec=null}
+    constructor(arg){
+        this.exec=arg.exec;
+        this.value=null;
+        this.nextNode = null;
+        this.parent = null;
+        if(arg.parent){
+            this.parent = arg.parent;
+            arg.parent.nextNode = this;
+        }else{
+            setTimeout(()=>{
+                arg.init(this);
+            },0);
+        }
+    }
+
+
+
+    // this is a creator ~~~
+    then(exec){
+        return new Chain2({exec:exec,parent:this});
+    }
+
+    resolve(rt){
+        Chain2.run(rt,this.nextNode);
+    }
+
+    static run(rt,node){
+        if(!node){
+            return ;
+        }
+        let client = node.exec(rt);
+
+        if(  client instanceof  Chain2){
+            client.then(function (rt) {
+                Chain2.run(rt,node.nextNode);
+            })
+        }else{
+            Chain2.run(rt,node.nextNode);
+        }
+    }
+
+}
+
+
+
 function cclog(txt,time){
     let tmp= new Chain(chain=>{
             setTimeout(()=>{
@@ -94,4 +142,35 @@ function tschain3(){
 
 }
 
-tschain3();
+function c2log(txt,time){
+    let tmp = new Chain2({init:function(chain){
+        setTimeout(()=>{
+            log(`cclog : ${txt}`);
+            chain.resolve(txt);
+        },time);
+    }});
+}
+
+function  tsChain2(){
+    let p = new Chain2({init:function(chain){
+        setTimeout(()=>{
+            log(`chain init `);
+            chain.resolve(` tsChain2 :`);
+        },1000);
+    }});
+
+    p.then(rt=>{
+        log(" then 2");
+        return c2log(`2~22~ ${rt}`,1000);
+    }).then(rt=>{
+        log(" then 3");
+        return c2log(`3~~ ${rt}`,8000);
+    }).then(rt=>{
+        log(" then 4");
+        return c2log(`4~~ ${rt}`,2000);
+    }).then(rt=>{
+        log(" then 5");
+        return c2log(`4~~ ${rt}`,2000);
+    });}
+
+tsChain2();
