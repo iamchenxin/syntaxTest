@@ -21,7 +21,7 @@ gulp.task("ts",function(){
     var rt = gulp.src("src/**/*.js")
         .pipe(sourcemaps.init())
         .pipe(babel(babel_options))
-        .pipe(sourcemaps.write("."))
+        .pipe(sourcemaps.write(".",{includeContent: false,sourceRoot: __dirname+"/src"}) )
         .pipe(gulp.dest("dst"));
 
     return rt;
