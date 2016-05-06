@@ -1,17 +1,18 @@
 /* @flow */
-function log(v:string){
+/* global ILikeC */
+function log(v:string) {
   console.log(v);
 }
 
-function foo(str:string,x:number):string{
-    if(str.length>x){
-        return `length > ${x}`;
-    }else{
-        return ` < ${x}`;
-    }
+function foo(str:string, x:number):string {
+  if (str.length>x) {
+    return `length > ${x}`;
+  } else {
+    return ` < ${x}`;
+  }
 }
 
-function foo2(v:number){
+function foo2(v:number) {
   log(v.toString());
 }
 
@@ -42,10 +43,10 @@ function takesAnILikeC(c: ILikeC): string { return c.foo(); }
 
 
 // similarly, C satisfies this object shape
-type XY = { x: string; yy: number; };
+type XY = { x: string; y: number; };
 
 function takesAnXY(xy: XY): number { return xy.y; }
 
-var c: ExportC = new ExportC("satisfies XY");
+var c: ExportC = new ExportC('satisfies XY');
 
 var n: number = takesAnXY(c);

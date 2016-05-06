@@ -1,20 +1,31 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
+  "parser": "babel-eslint",
   "rules": {
-    "semi": 2
+    "strict": 0,
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "flow-vars/define-flow-type": 0,
+    "flow-vars/use-flow-type": 0
   },
   "env": {
     "es6": true,
-    "node": true,
-    "browser": true
+    "browser": true,
+    "node": true
   },
-  "ecmaFeatures": {
-    "modules": true
-  }
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "ecmaVersion": 6,
+      "jsx": false,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "extends": ["eslint:recommended" , "./.eslintfb.js"]
 }
+//"./node_modules/fbjs-scripts/eslint/.eslintrc.js"
+//    "flow-vars/define-flow-type": 1,
+//    "flow-vars/use-flow-type": 1

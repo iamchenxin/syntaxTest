@@ -1,0 +1,7 @@
+[ignore]
+.*/test/.*
+.*/__test__/.*
+[include]
+../node_modules/babel-polyfill/
+[libs]
+[options]

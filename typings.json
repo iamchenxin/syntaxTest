@@ -1,9 +1,0 @@
-{
-  "name": "syntaxtest",
-  "dependencies": {},
-  "devDependencies": {},
-  "ambientDependencies": {
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#6444d11fc12956cf94ea3138a259b4d43bf68eef",
-    "jest": "github:DefinitelyTyped/DefinitelyTyped/jest/jest.d.ts#72314845b938bfb8c507306d5c3e45f708c2602a"
-  }
-}

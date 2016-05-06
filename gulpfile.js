@@ -17,12 +17,22 @@ function Log(txt){
 
 
 gulp.task("ts",function(){
-    Log(" compile ts ....");
-    var rt = gulp.src("src/**/*.js")
-        .pipe(sourcemaps.init())
-        .pipe(babel(babel_options))
-        .pipe(sourcemaps.write(".",{includeContent: false,sourceRoot: __dirname+"/src"}) )
-        .pipe(gulp.dest("dst"));
-
-    return rt;
+  return stdGulpTrans('src','dst');
 });
+
+
+function stdGulpTrans(src, dst) {
+  var sourceRoot = path.join(__dirname, src);
+  var srcPath = [src+'/**/*.js'];
+  return gulp
+    .src(srcPath)
+    .pipe(sourcemaps.init())
+    .pipe(babel({
+      'presets': ['es2015', 'stage-0'],
+      'plugins': ['transform-flow-strip-types']
+    }) )
+    .pipe(sourcemaps.write('.', {
+      includeContent: true, sourceRoot: sourceRoot, debug:true
+    }))
+    .pipe(gulp.dest(dst));
+}
